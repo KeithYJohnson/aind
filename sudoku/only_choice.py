@@ -30,7 +30,15 @@ def only_choice(dict_grid):
 
 
 
+# Credit to the course
+def course_solution(values):
+    for unit in unitlist:
+    for digit in '123456789':
+        dplaces = [box for box in unit if digit in values[box]]
+        if len(dplaces) == 1:
+            values[dplaces[0]] = digit
 
+    return values
 
 if __name__ == '__main__':
     string_grid = '..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3..'
