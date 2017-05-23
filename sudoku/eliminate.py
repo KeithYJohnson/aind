@@ -1,7 +1,7 @@
 from utils import *
 from grid_values import grid_values
 
-def eliminate(values):
+def eliminate(dict_grid):
     """Eliminate values from peers of each box with a single value.
 
     Go through all the boxes, and whenever there is a box with a single value,
@@ -25,6 +25,7 @@ def eliminate(values):
 
     return dict_grid
 
+# Courses implementation
 def alt_eliminate(values):
     """Eliminate values from peers of each box with a single value.
 
