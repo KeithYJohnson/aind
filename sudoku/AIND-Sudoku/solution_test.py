@@ -1,6 +1,7 @@
 import solution
 import unittest
-
+from helpers import dict_compare
+from pdb import set_trace as st
 
 class TestNakedTwins(unittest.TestCase):
     before_naked_twins_1 = {'I6': '4', 'H9': '3', 'I2': '6', 'E8': '1', 'H3': '5', 'H7': '8', 'I7': '1', 'I4': '8',
@@ -92,7 +93,8 @@ class TestDiagonalSudoku(unittest.TestCase):
                           'D1': '5'}
 
     def test_solve(self):
-        self.assertEqual(solution.solve(self.diagonal_grid), self.solved_diag_sudoku)
+        actual = solution.solve(self.diagonal_grid)
+        self.assertEqual(actual, self.solved_diag_sudoku)
 
 if __name__ == '__main__':
     unittest.main()

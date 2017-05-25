@@ -2,6 +2,7 @@ assignments = []
 
 import re
 from helpers import *
+from pdb import set_trace as st
 
 def assign_value(values, box, value):
     """
@@ -104,7 +105,7 @@ def only_choice(values):
 
     return values
 
-def reduce_puzzle(values):
+def reduce_puzzle(dict_grid):
     stalled = False
     while not stalled:
         # Check how many boxes have a determined value
@@ -161,11 +162,16 @@ def solve(grid):
     Returns:
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
+    dict_grid = grid_values(grid, boxes)
+    result    = search(dict_grid)
+    if result:
+        return result
+    else:
+        return False
 
 if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
-    dict_grid = grid_values(diag_sudoku_grid, boxes)
-    display(solve(diag_sudoku_grid))
+    solve(diag_sudoku_grid)
 
     try:
         from visualize import visualize_assignments
