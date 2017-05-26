@@ -1,6 +1,5 @@
 import solution
 import unittest
-from helpers import dict_compare
 from pdb import set_trace as st
 
 class TestNakedTwins(unittest.TestCase):
