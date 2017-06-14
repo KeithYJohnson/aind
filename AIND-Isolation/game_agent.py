@@ -3,6 +3,8 @@ test your agent's strength against a set of known agents using tournament.py
 and include the results in your report.
 """
 import random
+import timeit
+from pdb import set_trace as st
 
 
 class SearchTimeout(Exception):
@@ -34,8 +36,12 @@ def custom_score(game, player):
     float
         The heuristic value of the current game state to the specified player.
     """
-    # TODO: finish this function!
-    raise NotImplementedError
+    opponent           = game.get_opponent(player)
+    num_player_moves   = len(game.get_legal_moves(player))
+    num_opponent_moves = len(game.get_legal_moves(opponent))
+
+    return num_player_moves - num_opponent_moves
+
 
 
 def custom_score_2(game, player):
@@ -209,7 +215,8 @@ class MinimaxPlayer(IsolationPlayer):
                 each helper function or else your agent will timeout during
                 testing.
         """
-        if self.time_left() < self.TIMER_THRESHOLD:
+        st()
+        if self.time_left and self.time_left() < self.TIMER_THRESHOLD:
             raise SearchTimeout()
 
         # TODO: finish this function!
