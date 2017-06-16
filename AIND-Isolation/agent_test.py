@@ -21,24 +21,38 @@ class MinimaxPlayerTest(unittest.TestCase):
         self.p1 = MinimaxPlayer()
         self.p2 = MinimaxPlayer()
         self.g  = Board(self.p1, self.p2)
+        self.small_g = Board(self.p1, self.p2, 4, 4)
+    #
+    # def test_minimax(self):
+    #     thing = self.p1.minimax(self.small_g, 1)
+    #     print(self.small_g.get_legal_moves(self.p1))
 
-    def test_minimax(self):
-        pass
+    def test_custom_score_one_ply(self):
+        self.small_g.apply_move((1,1))
+        print(self.small_g.print_board())
 
-    def test_custom_score(self):
-        p1 = self.p1
-        p2 = self.p2
-        g  = self.g
-
-        # Initial positions
-        g.apply_move((0,0))
-        g.apply_move((1,1))
-
-        #2 moves for p1, 4 for p2
-        actual   = game_agent.custom_score(g, p1)
-        expected = -2
+        actual   = game_agent.custom_score(self.small_g, self.p1)
+        #P1 has 4 possible moves from a middle square
+        #P2 having not yet moved, can occupy any of the remaing 15 square
+        expected = -11
 
         self.assertEqual(actual, expected)
+
+    def custom_score_no_plies(self):
+        # In the initial state, each player has the same amount of possible moves
+        actual   = game_agent.custom_score(self.small_g, self.p1)
+        expected = 0 #16 - 16
+        self.assertEqual(actual, expected)
+
+    def custom_score_two_plies(self):
+        self.small_g.apply_move((1,1))
+        self.small_g.apply_move((0,0))
+        actual   = game_agent.custom_score(self.small_g, self.p1)
+        expected = 2 #4 - 2
+        self.assertEqual(actual, expected)
+
+
+
 
 
 
