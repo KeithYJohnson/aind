@@ -39,8 +39,8 @@ def custom_score(game, player):
     opponent           = game.get_opponent(player)
     num_player_moves   = len(game.get_legal_moves(player))
     num_opponent_moves = len(game.get_legal_moves(opponent))
-
-    return num_player_moves - num_opponent_moves
+    score              = num_player_moves - num_opponent_moves
+    return score
 
 
 
@@ -215,12 +215,21 @@ class MinimaxPlayer(IsolationPlayer):
                 each helper function or else your agent will timeout during
                 testing.
         """
-        st()
         if self.time_left and self.time_left() < self.TIMER_THRESHOLD:
             raise SearchTimeout()
 
-        # TODO: finish this function!
-        raise NotImplementedError
+        legal_moves     = game.get_legal_moves(self)
+        max_score       = -1000
+        max_scores_move = None
+
+        for move in legal_moves:
+            forecasted_game = game.forecast_move(move)
+            score = custom_score(forecasted_game, self)
+            if score > max_score:
+                max_score       = score
+                max_scores_move = move
+
+        return max_scores_move
 
 
 class AlphaBetaPlayer(IsolationPlayer):

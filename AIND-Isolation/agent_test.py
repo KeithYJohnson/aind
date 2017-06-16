@@ -22,10 +22,36 @@ class MinimaxPlayerTest(unittest.TestCase):
         self.p2 = MinimaxPlayer()
         self.g  = Board(self.p1, self.p2)
         self.small_g = Board(self.p1, self.p2, 4, 4)
-    #
-    # def test_minimax(self):
-    #     thing = self.p1.minimax(self.small_g, 1)
-    #     print(self.small_g.get_legal_moves(self.p1))
+
+    def test_minimax_no_plies(self):
+        actual = self.p1.minimax(self.small_g, 1)
+        expected = (1,1)
+        self.assertEqual(actual, expected)
+
+    def test_minimax_one_ply(self):
+        self.small_g.apply_move((1,1))
+        actual   = self.p2.minimax(self.small_g, 1)
+
+        # There are other moves that will result in the same
+        # heuristic score like (1,2) but this is the first
+        # move of that max score that minimax() evaluates
+        expected = (2, 1) # There are mul
+
+        self.assertEqual(actual, expected)
+
+    def test_minimax_two_plies(self):
+        self.small_g.apply_move((1,1))
+        self.small_g.apply_move((2,1))
+
+        expected = (3,2)
+        actual   = self.p1.minimax(self.small_g, 1)
+
+        self.assertEqual(expected, actual)
+
+    def test_minimax_more_than_one_ply(self):
+        actual = self.p1.minimax(self.small_g, 1)
+        expected = (1,1)
+        self.assertEqual(actual, expected)
 
     def test_custom_score_one_ply(self):
         self.small_g.apply_move((1,1))
@@ -50,12 +76,6 @@ class MinimaxPlayerTest(unittest.TestCase):
         actual   = game_agent.custom_score(self.small_g, self.p1)
         expected = 2 #4 - 2
         self.assertEqual(actual, expected)
-
-
-
-
-
-
 
 if __name__ == '__main__':
     unittest.main()
